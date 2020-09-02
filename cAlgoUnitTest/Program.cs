@@ -6,7 +6,7 @@ namespace cAlgoUnitTest
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             DLList<int> listed = new DLList<int>();
             for (int i = 0; i < 5000; i++)

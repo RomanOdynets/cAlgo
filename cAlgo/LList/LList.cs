@@ -105,8 +105,7 @@ namespace cAlgo.LList
         /// <param name="data">Записываемая информация по шаблону</param>
         public void AppendFirst(T data)
         {
-            Node<T> node = new Node<T>(data);
-            node.Next = head;
+            Node<T> node = new Node<T>(data) { Next = head };
             head = node;
             if (count == 0)
                 tail = head;
