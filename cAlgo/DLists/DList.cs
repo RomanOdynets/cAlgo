@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using cAlgo.Exceptions;
 
 namespace cAlgo.DLList
 {
@@ -7,10 +8,52 @@ namespace cAlgo.DLList
     /// Двухсторонний связной список, содержит ссылку на предыдущий обьект, информацию и ссылку на следующий элемент списка
     /// </summary>
     /// <typeparam name="T">Тип данных хранимый в списке</typeparam>
-    public class CDLList<T> : IEnumerable<T>
+    public class DList<T> : IEnumerable<T>
     {
         private DoublyNode<T> head;
+        private DoublyNode<T> tail;
         private int count;
+
+        /// <summary>
+        /// Индексатор для получения узла по индексу
+        /// </summary>
+        /// <param name="index">Номер узла</param>
+        /// <returns>Данные в этом узле</returns>
+        public T this[int index]
+        {
+            get
+            {
+                if (index >= count) throw new ListException($"Index was more than elements count. (Count: {count}/Index: {index})");
+                if (count == 0) throw new ListException($"List has no elements.");
+
+                DoublyNode<T> current = head;
+                int temp = 0;
+
+                while (current != null)
+                {
+                    if (index == temp) return current.Data;
+                    temp++;
+                    current = current.Next;
+                }
+
+                throw new ListException("Index was not found");
+            }
+            set
+            {
+                if (index >= count) throw new ListException($"Index was more than elements count. (Count: {count}/Index: {index})");
+                if (count == 0) throw new ListException($"List has no elements.");
+
+                DoublyNode<T> current = head;
+                int temp = 0;
+
+                while (current != null)
+                {
+                    if (index == temp) current.Data = value;
+                    temp++;
+                    current = current.Next;
+                }
+            }
+        }
 
         /// <summary>
         /// Добавление в конец списка значения по шаблону
@@ -20,19 +63,29 @@ namespace cAlgo.DLList
         {
             DoublyNode<T> node = new DoublyNode<T>(data);
 
-            if(head == null)
-            {
-                head = node;
-                head.Next = node;
-                head.Previous = node;
-            }
+            if (head == null) head = node;
             else
             {
-                node.Previous = head.Previous;
-                node.Next = head;
-                head.Previous.Next = node;
-                head.Previous = node;
+                tail.Next = node;
+                node.Previous = tail;
             }
+            tail = node;
+            count++;
+        }
+
+        /// <summary>
+        /// Добавление в начало списка значения по шаблону
+        /// </summary>
+        /// <param name="data">Записываемая информация по шаблону</param>
+        public void AddFirst(T data)
+        {
+            DoublyNode<T> node = new DoublyNode<T>(data);
+            DoublyNode<T> temp = head;
+
+            node.Next = temp;
+            head = node;
+            if (count == 0) tail = head;
+            else temp.Previous = node;
             count++;
         }
 
@@ -45,32 +98,23 @@ namespace cAlgo.DLList
         {
             DoublyNode<T> current = head;
 
-            DoublyNode<T> removedItem = null;
-
-            if (count == 0) return false;
-
-            do
+            while(current != null)
             {
                 if(current.Data.Equals(data))
                 {
-                    removedItem = current;
                     break;
                 }
                 current = current.Next;
-            } while (current != head);
+            }
 
-            if(removedItem != null)
+            if(current != null)
             {
-                if (count == 1) head = null;
-                else
-                {
-                    if(removedItem == head)
-                    {
-                        head = head.Next;
-                    }
-                    removedItem.Previous.Next = removedItem.Next;
-                    removedItem.Next.Previous = removedItem.Previous;
-                }
+                if (current.Next != null) current.Next.Previous = current.Previous;
+                else tail = current.Previous;
+
+                if (current.Previous != null) current.Previous.Next = current.Next;
+                else head = current.Next;
+
                 count--;
                 return true;
             }
@@ -94,6 +138,7 @@ namespace cAlgo.DLList
         public void Clear()
         {
             head = null;
+            tail = null;
             count = 0;
         }
 
@@ -105,26 +150,22 @@ namespace cAlgo.DLList
         public bool Contains(T data)
         {
             DoublyNode<T> current = head;
-            if (current == null) return false;
-            do
+            while(current != null)
             {
                 if (current.Data.Equals(data)) return true;
                 current = current.Next;
-            } while (current != head);
+            }
             return false;
         }
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
             DoublyNode<T> current = head;
-            do
+            while(current != null)
             {
-                if(current != null)
-                {
-                    yield return current.Data;
-                    current = current.Next;
-                }
-            }while(current != head);
+                yield return current.Data;
+                current = current.Next;
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -138,16 +179,13 @@ namespace cAlgo.DLList
         /// <returns>Интерфейс списка</returns>
         public IEnumerable<T> BackEnumerator()
         {
-            DoublyNode<T> current = head;
+            DoublyNode<T> current = tail;
 
-            do
+            while(current != null)
             {
-                if (current != null)
-                {
-                    yield return current.Data;
-                    current = current.Previous;
-                }
-            } while (current != head);
+                yield return current.Data;
+                current = current.Previous;
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using cAlgo.Exceptions;
 
 namespace cAlgo.LList
 {
@@ -10,9 +11,60 @@ namespace cAlgo.LList
     /// <typeparam name="T">Тип данных хранимый в списке</typeparam>
     public class LList<T> : IEnumerable<T>
     {
+        /// <summary>
+        /// Количество элементов в списке
+        /// </summary>
+        public int Count { get { return count; } }
+
+        /// <summary>
+        /// Возвращает пустой ли список
+        /// </summary>
+        public bool IsEmpty { get { return count == 0; } }
+
         private Node<T> head;
         private Node<T> tail;
         private int count;
+
+        /// <summary>
+        /// Индексатор для получения узла по индексу
+        /// </summary>
+        /// <param name="index">Номер узла</param>
+        /// <returns>Данные в этом узле</returns>
+        public T this[int index]
+        {
+            get
+            {
+                if (index >= count) throw new ListException($"Index was more than elements count. (Count: {count}/Index: {index})");
+                if (count == 0) throw new ListException($"List has no elements.");
+
+                Node<T> current = head;
+                int temp = 0;
+
+                while(current != null)
+                {
+                    if (index == temp) return current.Data;
+                    temp++;
+                    current = current.Next;
+                }
+
+                throw new ListException("Index was not found");
+            }
+            set
+            {
+                if (index >= count) throw new ListException($"Index was more than elements count. (Count: {count}/Index: {index})");
+                if (count == 0) throw new ListException($"List has no elements.");
+
+                Node<T> current = head;
+                int temp = 0;
+
+                while (current != null)
+                {
+                    if (index == temp) current.Data = value;
+                    temp++;
+                    current = current.Next;
+                }
+            }
+        }
 
         /// <summary>
         /// Добавление информации в конец списка
@@ -61,16 +113,6 @@ namespace cAlgo.LList
             }
             return false;
         }
-
-        /// <summary>
-        /// Количество элементов в списке
-        /// </summary>
-        public int Count { get { return count; } }
-
-        /// <summary>
-        /// Возвращает пустой ли список
-        /// </summary>
-        public bool IsEmpty { get { return count == 0; } }
 
         /// <summary>
         /// Очищает список от всех элементов

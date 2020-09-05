@@ -8,7 +8,7 @@ namespace cAlgoUnitTest
     {
         static void Main()
         {
-            DLList<int> listed = new DLList<int>();
+            DList<int> listed = new DList<int>();
             for (int i = 0; i < 5000; i++)
             {
                 listed.Add(i);

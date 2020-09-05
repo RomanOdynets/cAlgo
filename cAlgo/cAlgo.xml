@@ -4,54 +4,115 @@
         <name>cAlgo</name>
     </assembly>
     <members>
-        <member name="T:cAlgo.DLList.DLList`1">
+        <member name="T:cAlgo.DLList.CDList`1">
             <summary>
             Двухсторонний связной список, содержит ссылку на предыдущий обьект, информацию и ссылку на следующий элемент списка
             </summary>
             <typeparam name="T">Тип данных хранимый в списке</typeparam>
         </member>
-        <member name="M:cAlgo.DLList.DLList`1.Add(`0)">
+        <member name="P:cAlgo.DLList.CDList`1.Item(System.Int32)">
+            <summary>
+            Индексатор для получения узла по индексу
+            </summary>
+            <param name="index">Номер узла</param>
+            <returns>Данные в этом узле</returns>
+        </member>
+        <member name="M:cAlgo.DLList.CDList`1.Add(`0)">
             <summary>
             Добавление в конец списка значения по шаблону
             </summary>
             <param name="data">Записываемая информация по шаблону</param>
         </member>
-        <member name="M:cAlgo.DLList.DLList`1.AddFirst(`0)">
-            <summary>
-            Добавление в начало списка значения по шаблону
-            </summary>
-            <param name="data">Записываемая информация по шаблону</param>
-        </member>
-        <member name="M:cAlgo.DLList.DLList`1.Remove(`0)">
+        <member name="M:cAlgo.DLList.CDList`1.Remove(`0)">
             <summary>
             Удаление информации со списка
             </summary>
             <param name="data">Данные, которые требуется удалить</param>
             <returns>Результат удаления</returns>
         </member>
-        <member name="P:cAlgo.DLList.DLList`1.Count">
+        <member name="P:cAlgo.DLList.CDList`1.Count">
             <summary>
             Количество элементов в списке
             </summary>
         </member>
-        <member name="P:cAlgo.DLList.DLList`1.IsEmpty">
+        <member name="P:cAlgo.DLList.CDList`1.IsEmpty">
             <summary>
             Возвращает пустой ли список
             </summary>
         </member>
-        <member name="M:cAlgo.DLList.DLList`1.Clear">
+        <member name="M:cAlgo.DLList.CDList`1.Clear">
             <summary>
             Очищает список от всех элементов
             </summary>
         </member>
-        <member name="M:cAlgo.DLList.DLList`1.Contains(`0)">
+        <member name="M:cAlgo.DLList.CDList`1.Contains(`0)">
             <summary>
             Проверка на существование информации в списке
             </summary>
             <param name="data">Искомая информация по шаблону</param>
             <returns>Результат поиска</returns>
         </member>
-        <member name="M:cAlgo.DLList.DLList`1.BackEnumerator">
+        <member name="M:cAlgo.DLList.CDList`1.BackEnumerator">
+            <summary>
+            Вывод элементов списка в обратном порядке
+            </summary>
+            <returns>Интерфейс списка</returns>
+        </member>
+        <member name="T:cAlgo.DLList.DList`1">
+            <summary>
+            Двухсторонний связной список, содержит ссылку на предыдущий обьект, информацию и ссылку на следующий элемент списка
+            </summary>
+            <typeparam name="T">Тип данных хранимый в списке</typeparam>
+        </member>
+        <member name="P:cAlgo.DLList.DList`1.Item(System.Int32)">
+            <summary>
+            Индексатор для получения узла по индексу
+            </summary>
+            <param name="index">Номер узла</param>
+            <returns>Данные в этом узле</returns>
+        </member>
+        <member name="M:cAlgo.DLList.DList`1.Add(`0)">
+            <summary>
+            Добавление в конец списка значения по шаблону
+            </summary>
+            <param name="data">Записываемая информация по шаблону</param>
+        </member>
+        <member name="M:cAlgo.DLList.DList`1.AddFirst(`0)">
+            <summary>
+            Добавление в начало списка значения по шаблону
+            </summary>
+            <param name="data">Записываемая информация по шаблону</param>
+        </member>
+        <member name="M:cAlgo.DLList.DList`1.Remove(`0)">
+            <summary>
+            Удаление информации со списка
+            </summary>
+            <param name="data">Данные, которые требуется удалить</param>
+            <returns>Результат удаления</returns>
+        </member>
+        <member name="P:cAlgo.DLList.DList`1.Count">
+            <summary>
+            Количество элементов в списке
+            </summary>
+        </member>
+        <member name="P:cAlgo.DLList.DList`1.IsEmpty">
+            <summary>
+            Возвращает пустой ли список
+            </summary>
+        </member>
+        <member name="M:cAlgo.DLList.DList`1.Clear">
+            <summary>
+            Очищает список от всех элементов
+            </summary>
+        </member>
+        <member name="M:cAlgo.DLList.DList`1.Contains(`0)">
+            <summary>
+            Проверка на существование информации в списке
+            </summary>
+            <param name="data">Искомая информация по шаблону</param>
+            <returns>Результат поиска</returns>
+        </member>
+        <member name="M:cAlgo.DLList.DList`1.BackEnumerator">
             <summary>
             Вывод элементов списка в обратном порядке
             </summary>
@@ -84,11 +145,87 @@
             </summary>
             <param name="data">Записываемая информация по шаблону</param>
         </member>
+        <member name="T:cAlgo.Exceptions.ListException">
+            <summary>
+            Обработчик ошибок для листов
+            </summary>
+        </member>
+        <member name="M:cAlgo.Exceptions.ListException.#ctor(System.String)">
+            <summary>
+            Конструктор ошибок
+            </summary>
+            <param name="message">Сообщение ошибки</param>
+        </member>
+        <member name="T:cAlgo.LList.CList`1">
+            <summary>
+            Связной список
+            </summary>
+            <typeparam name="T">Тип данных хранимый в списке</typeparam>
+        </member>
+        <member name="P:cAlgo.LList.CList`1.Item(System.Int32)">
+            <summary>
+            Индексатор для получения узла по индексу
+            </summary>
+            <param name="index">Номер узла</param>
+            <returns>Данные в этом узле</returns>
+        </member>
+        <member name="M:cAlgo.LList.CList`1.Add(`0)">
+            <summary>
+            Добавление информации в конец списка
+            </summary>
+            <param name="data">Записываемая информация по шаблону</param>
+        </member>
+        <member name="M:cAlgo.LList.CList`1.Remove(`0)">
+            <summary>
+            Удаление информации из списка
+            </summary>
+            <param name="data">Удаляемая информация по шаблону</param>
+            <returns>Результат удаления</returns>
+        </member>
+        <member name="P:cAlgo.LList.CList`1.Count">
+            <summary>
+            Количество элементов в списке
+            </summary>
+        </member>
+        <member name="P:cAlgo.LList.CList`1.IsEmpty">
+            <summary>
+            Возвращает пустой ли список
+            </summary>
+        </member>
+        <member name="M:cAlgo.LList.CList`1.Clear">
+            <summary>
+            Очищает список от всех элементов
+            </summary>
+        </member>
+        <member name="M:cAlgo.LList.CList`1.Contains(`0)">
+            <summary>
+            Проверяет существует ли искомая информация в списке
+            </summary>
+            <param name="data">Искомая информация по шаблону</param>
+            <returns>Результат поиска</returns>
+        </member>
         <member name="T:cAlgo.LList.LList`1">
             <summary>
             Связной список
             </summary>
             <typeparam name="T">Тип данных хранимый в списке</typeparam>
+        </member>
+        <member name="P:cAlgo.LList.LList`1.Count">
+            <summary>
+            Количество элементов в списке
+            </summary>
+        </member>
+        <member name="P:cAlgo.LList.LList`1.IsEmpty">
+            <summary>
+            Возвращает пустой ли список
+            </summary>
+        </member>
+        <member name="P:cAlgo.LList.LList`1.Item(System.Int32)">
+            <summary>
+            Индексатор для получения узла по индексу
+            </summary>
+            <param name="index">Номер узла</param>
+            <returns>Данные в этом узле</returns>
         </member>
         <member name="M:cAlgo.LList.LList`1.Add(`0)">
             <summary>
@@ -102,16 +239,6 @@
             </summary>
             <param name="data">Удаляемая информация по шаблону</param>
             <returns>Результат удаления</returns>
-        </member>
-        <member name="P:cAlgo.LList.LList`1.Count">
-            <summary>
-            Количество элементов в списке
-            </summary>
-        </member>
-        <member name="P:cAlgo.LList.LList`1.IsEmpty">
-            <summary>
-            Возвращает пустой ли список
-            </summary>
         </member>
         <member name="M:cAlgo.LList.LList`1.Clear">
             <summary>

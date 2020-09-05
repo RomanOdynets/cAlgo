@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using cAlgo.Exceptions;
 
 namespace cAlgo.LList
 {
@@ -8,11 +9,52 @@ namespace cAlgo.LList
     /// Связной список
     /// </summary>
     /// <typeparam name="T">Тип данных хранимый в списке</typeparam>
-    public class CLList<T> : IEnumerable<T>
+    public class CList<T> : IEnumerable<T>
     {
         private Node<T> head;
         private Node<T> tail;
         private int count;
+
+        /// <summary>
+        /// Индексатор для получения узла по индексу
+        /// </summary>
+        /// <param name="index">Номер узла</param>
+        /// <returns>Данные в этом узле</returns>
+        public T this[int index]
+        {
+            get
+            {
+                if (index >= count) throw new ListException($"Index was more than elements count. (Count: {count}/Index: {index})");
+                if (count == 0) throw new ListException($"List has no elements.");
+
+                Node<T> current = head;
+                int temp = 0;
+
+                do
+                {
+                    if (index == temp) return current.Data;
+                    temp++;
+                    current = current.Next;
+                } while (current != head);
+
+                throw new ListException("Index was not found");
+            }
+            set
+            {
+                if (index >= count) throw new ListException($"Index was more than elements count. (Count: {count}/Index: {index})");
+                if (count == 0) throw new ListException($"List has no elements.");
+
+                Node<T> current = head;
+                int temp = 0;
+
+                do
+                {
+                    if (index == temp) current.Data = value;
+                    temp++;
+                    current = current.Next;
+                } while (current != head);
+            }
+        }
 
         /// <summary>
         /// Добавление информации в конец списка
